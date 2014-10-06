@@ -5,8 +5,10 @@ This is based off [Busybox](http://www.busybox.net/) to keep the size minimal (a
 
 ### Tags
 
-* `latest` or `8`: Oracle Java 8
-* `7`: Oracle Java 7
+* `latest` or `8`: Oracle Java 8 (Server JRE)
+* `7`: Oracle Java 7 (Server JRE)
+* `jdk8`: Oracle Java 8 (JDK)
+* `jdk7`: Oracle Java 7 (JDK)
 
 ### Usage
 
