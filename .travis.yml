@@ -1,0 +1,45 @@
+language: c
+
+env:
+  global:
+    - IMAGE_NAME=busybox-java
+    - IMAGE_TAGS="latest 8"
+    # HUB_USERNAME, HUB_PASSWORD and HUB_EMAIL should be configured from the Travis repository settings
+    - "HOST_IP=$(/sbin/ifconfig venet0:0 | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}')"
+    - DOCKER_HOST=tcp://$HOST_IP:2375
+    - DOCKER_PORT_RANGE=2400:2500
+    - SLIRP_PORTS=$(seq 2375 2500)
+
+before_install:
+  - sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
+  - sudo sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+  - echo exit 101 | sudo tee /usr/sbin/policy-rc.d
+  - sudo chmod +x /usr/sbin/policy-rc.d
+
+install:
+  - sudo apt-get -qqy update
+  - sudo apt-get -qqy install lxc lxc-docker-1.3.3 slirp
+  - sudo sudo usermod -aG docker "$USER"
+  - git clone git://github.com/cptactionhank/sekexe
+
+before_script:
+  - "sekexe/run 'mount -t tmpfs -o size=1g tmpfs /var/lib/docker && docker -d -H tcp://0.0.0.0:2375' &"
+  - "while ! docker info &> /dev/null ; do sleep 1; done"
+  - docker version
+  # Log in to Docker Hub
+  - "if [ -n \"$HUB_USERNAME\" ]; then docker login -u $HUB_USERNAME -p $HUB_PASSWORD -e $HUB_EMAIL; fi"
+
+after_script:
+  # Log out from Docker Hub
+  - "if [ -n \"$HUB_USERNAME\" ]; then docker logout; fi"
+
+script:
+  # Fetch previous versions to avoid duplicating stuff
+  - "if [ -n \"$HUB_USERNAME\" ]; then docker pull $HUB_USERNAME/$IMAGE_NAME:$(echo \"$IMAGE_TAGS\" | awk '{print $1}') || true; fi"
+  # Build
+  - docker build -t $IMAGE_NAME .
+  # Test
+  - docker run $IMAGE_NAME java -version
+  # Publish
+  - "if [ -n \"$HUB_USERNAME\" ]; then for IMAGE_TAG in $IMAGE_TAGS; do docker build -t $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG .; docker push $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG; done; fi"
+

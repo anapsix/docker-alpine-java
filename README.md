@@ -1,4 +1,4 @@
-## Minimal Docker image with Java
+## Minimal Docker image with Java [![Build Status](https://travis-ci.org/jeanblanchard/docker-busybox-java.svg?branch=master)](https://travis-ci.org/jeanblanchard/docker-busybox-java)
 
 Basic [Docker](https://www.docker.com/) image to run [Java](https://www.java.com/) applications.
 This is based off [Busybox](http://www.busybox.net/) to keep the size minimal (about 25% of an ubuntu-based image).
