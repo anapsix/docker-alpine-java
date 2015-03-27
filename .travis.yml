@@ -4,6 +4,7 @@ env:
   global:
     - IMAGE_NAME=busybox-java
     - IMAGE_TAGS="latest 8"
+    - PUBLISH_IF_BRANCH=master # Publish only when building from this branch, not branches created from it
     # HUB_USERNAME, HUB_PASSWORD and HUB_EMAIL should be configured from the Travis repository settings
     - "HOST_IP=$(/sbin/ifconfig venet0:0 | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}')"
     - DOCKER_HOST=tcp://$HOST_IP:2375
@@ -27,19 +28,20 @@ before_script:
   - "while ! docker info &> /dev/null ; do sleep 1; done"
   - docker version
   # Log in to Docker Hub
-  - "if [ -n \"$HUB_USERNAME\" ]; then docker login -u $HUB_USERNAME -p $HUB_PASSWORD -e $HUB_EMAIL; fi"
+  - "if [ $TRAVIS_PULL_REQUEST = false ] && [ $TRAVIS_BRANCH = $PUBLISH_IF_BRANCH ] && [ -n \"$HUB_USERNAME\" ] && [ -n \"$HUB_PASSWORD\" ]; then PUBLISH_IMAGE=true; echo 'Publishing!'; else PUBLISH_IMAGE=false; echo 'Not publishing!'; fi"
+  - "if [ $PUBLISH_IMAGE = true ]; then docker login -u $HUB_USERNAME -p $HUB_PASSWORD -e $HUB_EMAIL; fi"
 
 after_script:
   # Log out from Docker Hub
-  - "if [ -n \"$HUB_USERNAME\" ]; then docker logout; fi"
+  - "if [ $PUBLISH_IMAGE = true ]; then docker logout; fi"
 
 script:
   # Fetch previous versions to avoid duplicating stuff
-  - "if [ -n \"$HUB_USERNAME\" ]; then docker pull $HUB_USERNAME/$IMAGE_NAME:$(echo \"$IMAGE_TAGS\" | awk '{print $1}') || true; fi"
+  - "if [ $PUBLISH_IMAGE = true ]; then docker pull $HUB_USERNAME/$IMAGE_NAME:$(echo \"$IMAGE_TAGS\" | awk '{print $1}') || true; fi"
   # Build
   - docker build -t $IMAGE_NAME .
   # Test
   - docker run $IMAGE_NAME java -version
   # Publish
-  - "if [ -n \"$HUB_USERNAME\" ]; then for IMAGE_TAG in $IMAGE_TAGS; do docker build -t $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG .; docker push $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG; done; fi"
+  - "if [ $PUBLISH_IMAGE = true ]; then for IMAGE_TAG in $IMAGE_TAGS; do docker build -t $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG .; docker push $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG; done; fi"
 
