@@ -3,7 +3,7 @@ language: c
 env:
   global:
     - IMAGE_NAME=busybox-java
-    - IMAGE_TAGS="latest 8"
+    - IMAGE_TAGS="latest 8 8u45 serverjre8 serverjre8u45"
     - PUBLISH_IF_BRANCH=master # Publish only when building from this branch, not branches created from it
     # HUB_USERNAME, HUB_PASSWORD and HUB_EMAIL should be configured from the Travis repository settings
     - "HOST_IP=$(/sbin/ifconfig venet0:0 | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}')"
@@ -12,8 +12,8 @@ env:
     - SLIRP_PORTS=$(seq 2375 2500)
 
 before_install:
-  - sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
-  - sudo sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+  - sudo sh -c "wget -qO- https://get.docker.com/gpg | apt-key add -"
+  - sudo sh -c "echo deb https://get.docker.com/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
   - echo exit 101 | sudo tee /usr/sbin/policy-rc.d
   - sudo chmod +x /usr/sbin/policy-rc.d
 
