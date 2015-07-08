@@ -1,7 +1,7 @@
 # AlpineLinux with a glibc-2.21 and Oracle Java 8
 
 FROM alpine:3.2
-MAINTAINER Jean Blanchard <jean@blanchard.io>
+MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Install cURL
 RUN apk --update add curl ca-certificates tar && \
