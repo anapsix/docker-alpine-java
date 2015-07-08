@@ -2,9 +2,9 @@ language: c
 
 env:
   global:
-    - IMAGE_NAME=busybox-java
+    - IMAGE_NAME=alpine-java
     - IMAGE_TAGS="latest 8 8u45 serverjre8 serverjre8u45"
-    - PUBLISH_IF_BRANCH=master # Publish only when building from this branch, not branches created from it
+    #- PUBLISH_IF_BRANCH=master # Publish only when building from this branch, not branches created from it
     # HUB_USERNAME, HUB_PASSWORD and HUB_EMAIL should be configured from the Travis repository settings
     - "HOST_IP=$(/sbin/ifconfig venet0:0 | grep 'inet addr' | awk -F: '{print $2}' | awk '{print $1}')"
     - DOCKER_HOST=tcp://$HOST_IP:2375
@@ -19,7 +19,7 @@ before_install:
 
 install:
   - sudo apt-get -qqy update
-  - sudo apt-get -qqy install lxc lxc-docker-1.3.3 slirp
+  - sudo apt-get -qqy install lxc-docker slirp
   - sudo sudo usermod -aG docker "$USER"
   - git clone git://github.com/cptactionhank/sekexe
 
@@ -28,20 +28,20 @@ before_script:
   - "while ! docker info &> /dev/null ; do sleep 1; done"
   - docker version
   # Log in to Docker Hub
-  - "if [ $TRAVIS_PULL_REQUEST = false ] && [ $TRAVIS_BRANCH = $PUBLISH_IF_BRANCH ] && [ -n \"$HUB_USERNAME\" ] && [ -n \"$HUB_PASSWORD\" ]; then PUBLISH_IMAGE=true; echo 'Publishing!'; else PUBLISH_IMAGE=false; echo 'Not publishing!'; fi"
-  - "if [ $PUBLISH_IMAGE = true ]; then docker login -u $HUB_USERNAME -p $HUB_PASSWORD -e $HUB_EMAIL; fi"
+  #- "if [ $TRAVIS_PULL_REQUEST = false ] && [ $TRAVIS_BRANCH = $PUBLISH_IF_BRANCH ] && [ -n \"$HUB_USERNAME\" ] && [ -n \"$HUB_PASSWORD\" ]; then PUBLISH_IMAGE=true; echo 'Publishing!'; else PUBLISH_IMAGE=false; echo 'Not publishing!'; fi"
+  #- "if [ $PUBLISH_IMAGE = true ]; then docker login -u $HUB_USERNAME -p $HUB_PASSWORD -e $HUB_EMAIL; fi"
 
 after_script:
   # Log out from Docker Hub
-  - "if [ $PUBLISH_IMAGE = true ]; then docker logout; fi"
+  #- "if [ $PUBLISH_IMAGE = true ]; then docker logout; fi"
 
 script:
   # Fetch previous versions to avoid duplicating stuff
-  - "if [ $PUBLISH_IMAGE = true ]; then docker pull $HUB_USERNAME/$IMAGE_NAME:$(echo \"$IMAGE_TAGS\" | awk '{print $1}') || true; fi"
+  #- "if [ $PUBLISH_IMAGE = true ]; then docker pull $HUB_USERNAME/$IMAGE_NAME:$(echo \"$IMAGE_TAGS\" | awk '{print $1}') || true; fi"
   # Build
-  - docker build -t $IMAGE_NAME .
+  - docker -H tcp://127.0.0.1:2375 build -t $IMAGE_NAME .
   # Test
-  - docker run $IMAGE_NAME java -version
+  - docker -H tcp://127.0.0.1:2375 run $IMAGE_NAME java -version
   # Publish
-  - "if [ $PUBLISH_IMAGE = true ]; then for IMAGE_TAG in $IMAGE_TAGS; do docker build -t $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG .; docker push $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG; done; fi"
+  #- "if [ $PUBLISH_IMAGE = true ]; then for IMAGE_TAG in $IMAGE_TAGS; do docker build -t $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG .; docker push $HUB_USERNAME/$IMAGE_NAME:$IMAGE_TAG; done; fi"
 
