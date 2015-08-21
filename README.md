@@ -9,7 +9,7 @@ This is based off [AlpineLinux](http://alpinelinux.org/) to keep the size minima
 
 ### Versions
 
-**JRE8/JDK8 Version**: `8u60-b27`
+**JRE8/JDK8 Version**: `8u60-b27`  
 **JRE7/JDK7 Version**: `7u80-b15`
 
 ### Tags
