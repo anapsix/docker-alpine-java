@@ -39,7 +39,7 @@ script:
   # Fetch previous versions to avoid duplicating stuff
   #- "if [ $PUBLISH_IMAGE = true ]; then docker pull $HUB_USERNAME/$IMAGE_NAME:$(echo \"$IMAGE_TAGS\" | awk '{print $1}') || true; fi"
   # Build
-  - docker -H tcp://127.0.0.1:2375 build -t $IMAGE_NAME .
+  - docker -H tcp://127.0.0.1:2375 build -t $IMAGE_NAME 8/jre/
   # Test
   - docker -H tcp://127.0.0.1:2375 run $IMAGE_NAME java -version
   # Publish
