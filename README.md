@@ -5,14 +5,19 @@
 [![](https://badge.imagelayers.io/anapsix/alpine-java:latest.svg)](https://imagelayers.io/?images=anapsix/alpine-java:latest)
 
 Basic [Docker](https://www.docker.com/) image to run [Java](https://www.java.com/) applications.
-This is based off [Busybox](http://www.busybox.net/) to keep the size minimal (about 25% of an ubuntu-based image).
+This is based off [AlpineLinux](http://alpinelinux.org/) to keep the size minimal.
 
-**JRE/JDK Version 8u60-b27**
+### Versions
+
+**JRE8/JDK8 Version**: `8u60-b27`
+**JRE7/JDK7 Version**: `7u80-b15`
 
 ### Tags
 
-* `latest` or `8`: Oracle Java 8 (Server JRE)
+* `latest` / `8` /`jre` / `jre8` : Oracle Java 8 (Server JRE)
 * `jdk8` or `jdk`: Oracle Java 8 (JDK)
+* `7` /`jre` / `jre7` : Oracle Java 7 (Server JRE)
+* `jdk` / `jdk8` : Oracle Java 7 (JDK)
 
 ### Usage
 
