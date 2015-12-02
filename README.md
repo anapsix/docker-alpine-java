@@ -1,11 +1,12 @@
-## Minimal Docker image with Java
+## Minified Docker image with Java
 
 [![Build Status](https://travis-ci.org/anapsix/docker-alpine-java.svg?branch=master)](https://travis-ci.org/anapsix/docker-alpine-java)
 
 [![](https://badge.imagelayers.io/anapsix/alpine-java:latest.svg)](https://imagelayers.io/?images=anapsix/alpine-java:latest)
 
 Basic [Docker](https://www.docker.com/) image to run [Java](https://www.java.com/) applications.
-This is based off [AlpineLinux](http://alpinelinux.org/) to keep the size minimal.
+This image is based on [AlpineLinux](http://alpinelinux.org/) to keep the size dow, yet smaller images do exist.  
+Includes BASH, since many Java applications like to have convoluted BASH start-up scripts.
 
 ### Versions
 
