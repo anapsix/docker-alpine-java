@@ -18,7 +18,7 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 * `latest` / `8` /`jre` / `jre8` : Oracle Java 8 (Server JRE)
 * `jdk8` or `jdk`: Oracle Java 8 (JDK)
 * `7` /`jre` / `jre7` : Oracle Java 7 (Server JRE)
-* `jdk` / `jdk8` : Oracle Java 7 (JDK)
+* `jdk7` : Oracle Java 7 (JDK)
 
 ### Usage
 
