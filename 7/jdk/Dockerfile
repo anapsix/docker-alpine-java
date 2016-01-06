@@ -1,6 +1,6 @@
 # AlpineLinux with a glibc-2.21 and Oracle Java 7
 
-FROM alpine
+FROM alpine:3.3
 MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Install cURL
