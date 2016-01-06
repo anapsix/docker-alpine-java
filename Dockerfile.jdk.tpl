@@ -1,23 +1,23 @@
-# AlpineLinux with a glibc-2.21 and Oracle Java 8
+# AlpineLinux with a glibc-2.21 and Oracle Java %JVM_MAJOR%
 
 FROM alpine
 MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Java Version
-ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 66
-ENV JAVA_VERSION_BUILD 17
-ENV JAVA_PACKAGE       jdk
+ENV JAVA_VERSION_MAJOR %JVM_MAJOR%
+ENV JAVA_VERSION_MINOR %JVM_MINOR%
+ENV JAVA_VERSION_BUILD %JVM_BUILD%
+ENV JAVA_PACKAGE       %JVM_PACKAGE%
 
 # Download and unarchive Java
-RUN apk upgrade --update && \
-    apk --update add curl ca-certificates tar && \
+RUN apk upgrade -U && \
+    apk -U add curl ca-certificates tar && \
     curl -Ls https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk > /tmp/glibc-2.21-r2.apk && \
     apk add --allow-untrusted /tmp/glibc-2.21-r2.apk && \
     mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie"\
-  http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
-    | tar -xzf - -C /opt &&\
-    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk &&\
+      http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
+      | tar -xzf - -C /opt &&\
+    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
     rm -rf /opt/jdk/*src.zip \
            /opt/jdk/jre/bin/javaws \
            /opt/jdk/jre/lib/*javafx* \
@@ -40,8 +40,7 @@ RUN apk upgrade --update && \
            /opt/jdk/jre/lib/amd64/libjavafx*.so \
            /opt/jdk/jre/lib/amd64/libjfx*.so && \
     apk del tar curl && \
-    rm -rf /tmp/* /var/cache/apk/* 
-
+    rm -rf /tmp/* /var/cache/apk/*
 
 # Set environment
 ENV JAVA_HOME /opt/jdk
