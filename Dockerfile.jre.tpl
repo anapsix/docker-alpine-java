@@ -1,10 +1,12 @@
+# AlpineLinux with a glibc-2.21 and Oracle Java %JVM_MAJOR%
 FROM alpine:3.3
 MAINTAINER Vladimir Krivosheev <develar@gmail.com>
 
-ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 66
-ENV JAVA_VERSION_BUILD 17
-ENV JAVA_PACKAGE server-jre
+# Java Version
+ENV JAVA_VERSION_MAJOR %JVM_MAJOR%
+ENV JAVA_VERSION_MINOR %JVM_MINOR%
+ENV JAVA_VERSION_BUILD %JVM_BUILD%
+ENV JAVA_PACKAGE       %JVM_PACKAGE%
 
 # about nsswitch.conf - see https://registry.hub.docker.com/u/frolvlad/alpine-oraclejdk8/dockerfile/
 

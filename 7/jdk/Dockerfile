@@ -1,6 +1,6 @@
 # AlpineLinux with a glibc-2.21 and Oracle Java 7
 
-FROM alpine
+FROM alpine:3.3
 MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Install cURL
@@ -39,7 +39,8 @@ RUN mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie
            /opt/jdk/jre/lib/amd64/libglass.so \
            /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
            /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so
+           /opt/jdk/jre/lib/amd64/libjfx*.so && \
+           echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 # Set environment
 ENV JAVA_HOME /opt/jdk
