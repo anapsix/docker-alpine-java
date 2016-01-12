@@ -15,10 +15,13 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 
 ### Tags
 
-* `latest` / `8` /`jre` / `jre8` : Oracle Java 8 (Server JRE)
-* `jdk8` or `jdk`: Oracle Java 8 (JDK)
-* `7` /`jre` / `jre7` : Oracle Java 7 (Server JRE)
-* `jdk7` : Oracle Java 7 (JDK)
+| Java version      | tags                    |
+| ----------------- | ----------------------- |
+| Oracle Java 8 JRE | latest / 8 / jre / jre8 |
+| Oracle Java 8 JDK | jdk / jdk8              |
+| Oracle Java 7 JRE | 7 / jre7                |
+| Oracle Java 7 JDK | jdk7                    |
+
 
 ### Usage
 
