@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail -e
+
 JRE_TEMPLATE="Dockerfile.jre.tpl"
 JDK_TEMPLATE="Dockerfile.jdk.tpl"
 
@@ -13,5 +15,8 @@ for version in ${JAVA_VERSIONS[@]}; do
   sed "s/%JVM_MAJOR%/$JVM_MAJOR/g;s/%JVM_MINOR%/$JVM_MINOR/g;s/%JVM_BUILD%/$JVM_BUILD/g;s/%JVM_PACKAGE%/server-jre/g" $JRE_TEMPLATE > $JVM_MAJOR/jre/Dockerfile && \
     echo "done" || \
     echo "failed"
-#  sed "s/%JVM_MAJOR%/$JVM_MAJOR/g;s/%JVM_MINOR%/$JVM_MINOR/g;s/%JVM_BUILD%/$JVM_BUILD/g;s/%JVM_PACKAGE%/jdk/g" $JDK_TEMPLATE > $JVM_MAJOR/jre/Dockerfile
+  echo -en "Generating Dockerfile for ${JVM_MAJOR}u${JVM_MINOR}b${JVM_BUILD} JDK.. "
+  sed "s/%JVM_MAJOR%/$JVM_MAJOR/g;s/%JVM_MINOR%/$JVM_MINOR/g;s/%JVM_BUILD%/$JVM_BUILD/g;s/%JVM_PACKAGE%/jdk/g" $JDK_TEMPLATE > $JVM_MAJOR/jdk/Dockerfile && \
+    echo "done" || \
+    echo "failed"
 done
