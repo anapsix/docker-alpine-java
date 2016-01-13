@@ -15,12 +15,12 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 
 ### Tags
 
-| Java version      | tags                    |
-| ----------------- | ----------------------- |
-| Oracle Java 8 JRE | latest / 8 / jre / jre8 |
-| Oracle Java 8 JDK | jdk / jdk8              |
-| Oracle Java 7 JRE | 7 / jre7                |
-| Oracle Java 7 JDK | jdk7                    |
+| Java version      | tags                    | Size |
+| ----------------- | ----------------------- | ---- |
+| Oracle Java 8 JRE | latest / 8 / jre / jre8 | [![](https://badge.imagelayers.io/anapsix/alpine-java:jre8.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jre8) |
+| Oracle Java 8 JDK | jdk / jdk8              | [![](https://badge.imagelayers.io/anapsix/alpine-java:jdk8.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jdk8) |
+| Oracle Java 7 JRE | 7 / jre7                | [![](https://badge.imagelayers.io/anapsix/alpine-java:jre8.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jre7) |
+| Oracle Java 7 JDK | jdk7                    | [![](https://badge.imagelayers.io/anapsix/alpine-java:jdk7.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jdk7) |
 
 
 ### Usage
