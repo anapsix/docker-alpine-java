@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-2.21 and Oracle Java 8
+# AlpineLinux with a glibc-2.21 and Oracle Java %JVM_MAJOR%
 FROM alpine:3.3
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
@@ -6,10 +6,10 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 # and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
 
 # Java Version
-ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 66
-ENV JAVA_VERSION_BUILD 17
-ENV JAVA_PACKAGE       jdk
+ENV JAVA_VERSION_MAJOR %JVM_MAJOR%
+ENV JAVA_VERSION_MINOR %JVM_MINOR%
+ENV JAVA_VERSION_BUILD %JVM_BUILD%
+ENV JAVA_PACKAGE       %JVM_PACKAGE%
 
 # do all in one step
 RUN apk upgrade --update && \
