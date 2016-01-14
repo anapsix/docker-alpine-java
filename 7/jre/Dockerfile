@@ -5,11 +5,14 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 # thanks to Vladimir Krivosheev <develar@gmail.com> aka @develar for smaller image
 # and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
 
-# Java Version
-ENV JAVA_VERSION_MAJOR 7
-ENV JAVA_VERSION_MINOR 80
-ENV JAVA_VERSION_BUILD 15
-ENV JAVA_PACKAGE       server-jre
+# Java Version and other ENV
+ENV JAVA_VERSION_MAJOR=7 \
+    JAVA_VERSION_MINOR=80 \
+    JAVA_VERSION_BUILD=15 \
+    JAVA_PACKAGE=server-jre \
+    JAVA_HOME=/opt/jdk \
+    PATH=${PATH}:/opt/jdk/bin \
+    LANG=C.UTF-8
 
 # do all in one step
 RUN apk upgrade --update && \
@@ -58,7 +61,4 @@ RUN apk upgrade --update && \
            /tmp/* /var/cache/apk/* && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
-# Set environment
-ENV JAVA_HOME /opt/jdk
-ENV PATH ${PATH}:${JAVA_HOME}/bin
-ENV LANG C.UTF-8
+# EOF
