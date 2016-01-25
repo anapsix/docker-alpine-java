@@ -7,8 +7,8 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=66 \
-    JAVA_VERSION_BUILD=17 \
+    JAVA_VERSION_MINOR=72 \
+    JAVA_VERSION_BUILD=15 \
     JAVA_PACKAGE=jdk \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
