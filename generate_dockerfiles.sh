@@ -5,7 +5,7 @@ set -o pipefail -e
 JRE_TEMPLATE="Dockerfile.jre.tpl"
 JDK_TEMPLATE="Dockerfile.jdk.tpl"
 
-JAVA_VERSIONS=( 7-80-15 8-72-15 )
+JAVA_VERSIONS=( 7-80-15 8-74-02 )
 
 for version in ${JAVA_VERSIONS[@]}; do
   JVM_MAJOR=$(echo $version | cut -d- -f1)

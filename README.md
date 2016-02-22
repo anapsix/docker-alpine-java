@@ -10,7 +10,7 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 
 ### Versions
 
-**JRE8/JDK8 Version**: `8u72-b15`  
+**JRE8/JDK8 Version**: `8u74-b02`  
 **JRE7/JDK7 Version**: `7u80-b15`
 
 ### Tags
