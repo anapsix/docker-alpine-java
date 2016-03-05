@@ -49,7 +49,6 @@ RUN apk upgrade --update && \
            /opt/jdk/jre/lib/desktop \
            /opt/jdk/jre/lib/*javafx* \
            /opt/jdk/jre/lib/*jfx* \
-           /opt/jdk/jre/lib/jfr* \
            /opt/jdk/jre/lib/amd64/libdecora_sse.so \
            /opt/jdk/jre/lib/amd64/libprism_*.so \
            /opt/jdk/jre/lib/amd64/libfxplugins.so \
