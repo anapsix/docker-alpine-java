@@ -22,7 +22,7 @@ RUN apk upgrade --update && \
     curl -L -o /tmp/glibc-bin-2.21-r2.apk "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-bin-2.21-r2.apk" && \
 
     mkdir /tmp/dcevm && \
-    curl -L -o /tmp/dcevm/DCEVM-light-8u74-installer.jar "https://github.com/dcevm/dcevm/releases/download/light-jdk8u74%2B1/DCEVM-light-8u74-installer.jar" && \
+    curl -L -o /tmp/dcevm/%DCEVM_INSTALLER_NAME% "%DCEVM_INSTALLER_URL%" && \
 
     apk add --allow-untrusted /tmp/glibc-bin-2.21-r2.apk && \
     /usr/glibc/usr/bin/ldconfig /lib /usr/glibc/usr/lib && \
@@ -34,7 +34,7 @@ RUN apk upgrade --update && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
 
     cd /tmp/dcevm && \
-    unzip DCEVM-light-8u74-installer.jar && \
+    unzip %DCEVM_INSTALLER_NAME% && \
     mkdir -p /opt/jdk/jre/lib/amd64/dcevm && \
     cp linux_amd64_compiler2/product/libjvm.so /opt/jdk/jre/lib/amd64/dcevm/libjvm.so && \
 
