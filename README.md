@@ -10,9 +10,9 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 
 ### Versions
 
-**JRE8/JDK8 Version**: `8u74-b02`  
+**JRE8/JDK8 Version**: `8u77-b03`  
 **JRE7/JDK7 Version**: `7u80-b15`  
-**JDK7/JDK8 Version with alternate JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u74` / `full-7u79`
+**JDK7/JDK8 Version with alternate JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u77` / `full-7u79`
 
 ### Tags
 
