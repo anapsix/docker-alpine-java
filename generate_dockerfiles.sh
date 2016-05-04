@@ -6,7 +6,7 @@ JRE_TEMPLATE="Dockerfile.jre.tpl"
 JDK_TEMPLATE="Dockerfile.jdk.tpl"
 JDK_DCEVM_TEMPLATE="Dockerfile.jdk-dcevm.tpl"
 
-JAVA_VERSIONS=( 7-80-15 8-77-03 )
+JAVA_VERSIONS=( 7-80-15 8-92-14 )
 
 for version in ${JAVA_VERSIONS[@]}; do
   JVM_MAJOR=$(echo $version | cut -d- -f1)
