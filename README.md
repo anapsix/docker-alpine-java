@@ -8,7 +8,8 @@ Basic [Docker](https://www.docker.com/) image to run [Java](https://www.java.com
 This image is based on [AlpineLinux](http://alpinelinux.org/) to keep the size dow, yet smaller images do exist.  
 Includes BASH, since many Java applications like to have convoluted BASH start-up scripts.
 
-### Versions
+### Versions/tags
+All tags upgraded to `alpine:3.4`
 
 **JRE8/JDK8 Version**: `8u92-b14`  
 **JRE7/JDK7 Version**: `7u80-b15`  
