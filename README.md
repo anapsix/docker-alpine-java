@@ -11,20 +11,38 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 ### Versions/tags
 All tags upgraded to `alpine:3.4`
 
-**JRE8/JDK8 Version**: `8u92-b14`  
-**JRE7/JDK7 Version**: `7u80-b15`  
+#### MAJOR TAGGING UPDATE
+To allow selection of specific Java version, a **major retagging is taking place**.
+Old tags will remain for compatibility sake, but are no longer documented.
+
+#### JCE Policy
+Special `_unlimited` images are available with Unlimited JCE Policy
+
+**Latest JRE8/JDK8 Version**: `8u102b14` 
+**Latest JRE7/JDK7 Version**: `7u80b15`  
 **JDK8/JDK7 Versions with alternative JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u92` / `full-7u80`
 
 ### Tags
 
-| Java version                                 | tags                    | Size |
-| -------------------------------------------- | ----------------------- | ---- |
-| Oracle Java 8 JRE                            | latest / 8 / jre / jre8 | [![](https://badge.imagelayers.io/anapsix/alpine-java:jre8.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jre8) |
-| Oracle Java 8 JDK                            | jdk / jdk8              | [![](https://badge.imagelayers.io/anapsix/alpine-java:jdk8.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jdk8) |
-| Oracle Java 8 JDK with alternate JVM - DCEVM | jdk8-dcevm              | [![](https://badge.imagelayers.io/anapsix/alpine-java:jdk8-dcevm.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jdk8-dcevm) |
-| Oracle Java 7 JRE                            | 7 / jre7                | [![](https://badge.imagelayers.io/anapsix/alpine-java:jre8.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jre7) |
-| Oracle Java 7 JDK                            | jdk7                    | [![](https://badge.imagelayers.io/anapsix/alpine-java:jdk7.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jdk7) |
-| Oracle Java 7 JDK with alternate JVM - DCEVM | jdk7-dcevm              | [![](https://badge.imagelayers.io/anapsix/alpine-java:jdk7-dcevm.svg)](https://imagelayers.io/?images=anapsix/alpine-java:jdk7-dcevm) |
+Latest Oracle Java 8 Server-JRE:
+* `latest`
+* `8`
+* `8_server-jre`
+* `8_server-jre_unlimited`
+
+Latest Oracle Java 8 JDK (plus DCEVM variant)
+* `8_jdk`
+* `8_jdk_unlimited`
+* `8_jdk-dcevm`
+* `8_jdk-dcevm_unlimited`
+
+Latest Oracle Java 7 Server-JRE:
+* `7`
+* `7_server-jre`
+
+Latest Oracle Java 7 JDK (plus DCEVM variant):
+* `7_jdk`
+* `7_jdk-dcevm`
 
 
 ### Usage

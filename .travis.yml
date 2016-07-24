@@ -7,7 +7,7 @@ services:
 
 before_install:
   - docker info
-  - docker build -t anapsix/alpine-java 8/jre/
+  - docker build -t anapsix/alpine-java 8/current/server-jre/standard/
 
 script:
   - docker run -it --rm anapsix/alpine-java java -version
