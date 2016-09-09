@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-2.23 and Oracle Java 8
+# AlpineLinux with a glibc-2.23 and Oracle Java 7
 FROM alpine:3.4
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
@@ -6,11 +6,11 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 # and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
 
 # Java Version and other ENV
-ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=92 \
-    JAVA_VERSION_BUILD=14 \
+ENV JAVA_VERSION_MAJOR=7 \
+    JAVA_VERSION_MINOR=80 \
+    JAVA_VERSION_BUILD=15 \
     JAVA_PACKAGE=jdk \
-    JAVA_JCE=standard \
+    JAVA_JCE=unlimited \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
     GLIBC_VERSION=2.23-r3 \
@@ -25,6 +25,9 @@ RUN apk upgrade --update && \
     ( /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 C.UTF-8 || true ) && \
     echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
+    mkdir /tmp/dcevm && \
+    echo "Downloading and Installing DCEVM" && \
+    curl -jkL# -o /tmp/dcevm/DCEVM-full-7u79-installer.jar "https://github.com/dcevm/dcevm/releases/download/full-jdk7u79%2B8/DCEVM-full-7u79-installer.jar" && \
     mkdir /opt && \
     echo "Downloading and Installing JAVA" && \
     curl -jkL#H "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
@@ -32,6 +35,10 @@ RUN apk upgrade --update && \
     gunzip /tmp/java.tar.gz && \
     tar -C /opt -xf /tmp/java.tar && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
+    cd /tmp/dcevm && \
+    unzip DCEVM-full-7u79-installer.jar && \
+    mkdir -p /opt/jdk/jre/lib/amd64/dcevm && \
+    cp linux_amd64_compiler2/product/libjvm.so /opt/jdk/jre/lib/amd64/dcevm/libjvm.so && \
     if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Downloading and Installing Unlimited JCE policy" && \
       [ ${JAVA_VERSION_MAJOR} -eq 7 ] && JCE_FILENAME="UnlimitedJCEPolicyJDK${JAVA_VERSION_MAJOR}.zip" || JCE_FILENAME="jce_policy-${JAVA_VERSION_MAJOR}.zip" && \
       curl -jkL#H "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/${JCE_FILENAME} \
@@ -75,5 +82,6 @@ RUN apk upgrade --update && \
            /opt/jdk/jre/lib/plugin.jar \
            /tmp/* /var/cache/apk/* && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+
 
 # EOF

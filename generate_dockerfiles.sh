@@ -63,16 +63,11 @@ for version in ${JAVA_VERSIONS[@]}; do
   fi
 
   for JVM_FLAVOR in ${JVM_FLAVORS[@]}; do
-    
-    if [ "${JVM_MAJOR}" -eq "8" ]; then
-      for JAVA_JCE in ${JCE_FLAVORS[@]}; do
-        gen_dockerfile $JVM_FLAVOR
-      done
-    else
+    for JAVA_JCE in ${JCE_FLAVORS[@]}; do
       gen_dockerfile $JVM_FLAVOR
-    fi
-
+    done
   done
+
 done
 
 echo -n "Generating symlinks for current versions.. "
