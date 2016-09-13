@@ -46,7 +46,6 @@ RUN apk upgrade --update && \
     rm -rf /opt/jdk/jre/plugin \
            /opt/jdk/jre/bin/javaws \
            /opt/jdk/jre/bin/jjs \
-           /opt/jdk/jre/bin/keytool \
            /opt/jdk/jre/bin/orbd \
            /opt/jdk/jre/bin/pack200 \
            /opt/jdk/jre/bin/policytool \
