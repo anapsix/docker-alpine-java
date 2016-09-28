@@ -12,8 +12,8 @@ ENV JAVA_VERSION_MAJOR=%JVM_MAJOR% \
     JAVA_PACKAGE=%JVM_PACKAGE% \
     JAVA_JCE=%JAVA_JCE% \
     JAVA_BASE_DIR=/opt \
-    JAVA_HOME=${JAVA_BASE_DIR}/jdk \
-    PATH=${PATH}:${JAVA_HOME}/bin \
+    JAVA_HOME=/opt/jdk \
+    PATH=${PATH}:/opt/jdk/bin \
     GLIBC_VERSION=%GLIBC_VERSION% \
     LANG=C.UTF-8
 

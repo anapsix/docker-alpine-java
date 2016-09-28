@@ -12,8 +12,8 @@ ENV JAVA_VERSION_MAJOR=8 \
     JAVA_PACKAGE=server-jre \
     JAVA_JCE=standard \
     JAVA_BASE_DIR=/opt \
-    JAVA_HOME=${JAVA_BASE_DIR}/jdk \
-    PATH=${PATH}:${JAVA_HOME}/bin \
+    JAVA_HOME=/opt/jdk \
+    PATH=${PATH}:/opt/jdk/bin \
     GLIBC_VERSION=2.23-r3 \
     LANG=C.UTF-8
 
