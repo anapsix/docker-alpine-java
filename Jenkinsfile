@@ -27,7 +27,7 @@ try {
         // send e-mail notifications for failed or unstable builds
         step([$class: 'Mailer',
               notifyEveryUnstableBuild: true,
-              recipients: 'smohammed@tivo.com',
+              recipients: 'builds-inception@mailman.tivo.com',
               sendToIndividuals: true
              ])
     }
