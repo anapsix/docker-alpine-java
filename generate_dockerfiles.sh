@@ -10,7 +10,7 @@ JCE_FLAVORS=(standard unlimited)
 # Dockerfile.jdk.tpl
 # Dockerfile.jdk-dcevm.tpl
 
-JAVA_VERSIONS=( 7-80-15 8-92-14 8-102-14 )
+JAVA_VERSIONS=( 7-80-15 8-92-14 8-102-14 8-112-15 )
 
 GLIBC_VERSION="2.23-r3"
 

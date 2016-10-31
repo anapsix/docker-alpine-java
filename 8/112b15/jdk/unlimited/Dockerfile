@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-2.23 and Oracle Java 7
+# AlpineLinux with a glibc-2.23 and Oracle Java 8
 FROM alpine:3.4
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
@@ -6,11 +6,11 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 # and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
 
 # Java Version and other ENV
-ENV JAVA_VERSION_MAJOR=7 \
-    JAVA_VERSION_MINOR=80 \
+ENV JAVA_VERSION_MAJOR=8 \
+    JAVA_VERSION_MINOR=112 \
     JAVA_VERSION_BUILD=15 \
     JAVA_PACKAGE=jdk \
-    JAVA_JCE=standard \
+    JAVA_JCE=unlimited \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
     GLIBC_VERSION=2.23-r3 \
