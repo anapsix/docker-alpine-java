@@ -7,10 +7,10 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=92 \
+    JAVA_VERSION_MINOR=111 \
     JAVA_VERSION_BUILD=14 \
     JAVA_PACKAGE=jdk \
-    JAVA_JCE=unlimited \
+    JAVA_JCE=standard \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
     GLIBC_VERSION=2.23-r3 \
