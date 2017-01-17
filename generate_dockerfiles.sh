@@ -10,7 +10,7 @@ JCE_FLAVORS=(standard unlimited)
 # Dockerfile.jdk.tpl
 # Dockerfile.jdk-dcevm.tpl
 
-JAVA_VERSIONS=( 7-80-15 8-92-14 8-102-14 8-112-15 )
+JAVA_VERSIONS=(7-80-15 8-92-14 8-102-14 8-111-14)
 
 GLIBC_VERSION="2.23-r3"
 
@@ -55,11 +55,13 @@ for version in ${JAVA_VERSIONS[@]}; do
   JVM_BUILD=$(echo $version | cut -d- -f3)
 
   if [ "${JVM_MAJOR}" -eq "7" ]; then
-    DCEVM_INSTALLER_URL="https:\\/\\/github.com\\/dcevm\\/dcevm\\/releases\\/download\\/full-jdk7u79%2B8\\/DCEVM-full-7u79-installer.jar"
-    DCEVM_INSTALLER_NAME="DCEVM-full-7u79-installer.jar"
+    DCEVM_INSTALLER_VERSION=7u79
+    DCEVM_INSTALLER_URL="https:\\/\\/github.com\\/dcevm\\/dcevm\\/releases\\/download\\/full-jdk${DCEVM_INSTALLER_VERSION}%2B8\\/DCEVM-full-${DCEVM_INSTALLER_VERSION}-installer.jar"
+    DCEVM_INSTALLER_NAME="DCEVM-full-${DCEVM_INSTALLER_VERSION}-installer.jar"
   else
-    DCEVM_INSTALLER_URL="https:\\/\\/github.com\\/dcevm\\/dcevm\\/releases\\/download\\/light-jdk8u74%2B1\\/DCEVM-light-8u74-installer.jar"
-    DCEVM_INSTALLER_NAME="DCEVM-light-8u74-installer.jar"
+    DCEVM_INSTALLER_VERSION=8u112
+    DCEVM_INSTALLER_URL="https:\\/\\/github.com\\/dcevm\\/dcevm\\/releases\\/download\\/light-jdk${DCEVM_INSTALLER_VERSION}%2B8\\/DCEVM-light-${DCEVM_INSTALLER_VERSION}-installer.jar"
+    DCEVM_INSTALLER_NAME="DCEVM-light-${DCEVM_INSTALLER_VERSION}-installer.jar"
   fi
 
   for JVM_FLAVOR in ${JVM_FLAVORS[@]}; do
@@ -84,5 +86,3 @@ for JAVA_MAJOR in $(echo "${JAVA_VERSIONS[@]}" | tr ' ' '\n\' | cut -d- -f1 | un
   cd ..
 done
 echo "done"
-
-
