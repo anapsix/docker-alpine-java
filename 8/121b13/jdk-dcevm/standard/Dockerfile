@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-2.23 and Oracle Java %JVM_MAJOR%
+# AlpineLinux with a glibc-2.23 and Oracle Java 8
 FROM alpine:3.4
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
@@ -6,14 +6,14 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 # and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
 
 # Java Version and other ENV
-ENV JAVA_VERSION_MAJOR=%JVM_MAJOR% \
-    JAVA_VERSION_MINOR=%JVM_MINOR% \
-    JAVA_VERSION_BUILD=%JVM_BUILD% \
-    JAVA_PACKAGE=%JVM_PACKAGE% \
-    JAVA_JCE=%JAVA_JCE% \
+ENV JAVA_VERSION_MAJOR=8 \
+    JAVA_VERSION_MINOR=121 \
+    JAVA_VERSION_BUILD=13 \
+    JAVA_PACKAGE=jdk \
+    JAVA_JCE=standard \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
-    GLIBC_VERSION=%GLIBC_VERSION% \
+    GLIBC_VERSION=2.23-r3 \
     LANG=C.UTF-8
 
 # do all in one step
@@ -26,17 +26,25 @@ RUN set -ex && \
     ( /usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap UTF-8 C.UTF-8 || true ) && \
     echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
+    mkdir /tmp/dcevm && \
+    curl -L -o /tmp/dcevm/DCEVM-light-8u112-installer.jar "https://github.com/dcevm/dcevm/releases/download/light-jdk8u112%2B8/DCEVM-light-8u112-installer.jar" && \
     mkdir /opt && \
     curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
-      %JVM_URL% && \
+      http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/e9e7ea248e2c4826b92b3f075a80e441/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
+    curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip \
+      http://download.oracle.com/otn-pub/java/jce/${JAVA_VERSION_MAJOR}/jce_policy-${JAVA_VERSION_MAJOR}.zip && \
     gunzip /tmp/java.tar.gz && \
     tar -C /opt -xf /tmp/java.tar && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
-    if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Installing Unlimited JCE policy" >&2 && \
+    cd /tmp/dcevm && \
+    unzip DCEVM-light-8u112-installer.jar && \
+    mkdir -p /opt/jdk/jre/lib/amd64/dcevm && \
+    cp linux_amd64_compiler2/product/libjvm.so /opt/jdk/jre/lib/amd64/dcevm/libjvm.so && \
+    if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Installing Unlimited JCE policy" && \
       curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip \
         http://download.oracle.com/otn-pub/java/jce/${JAVA_VERSION_MAJOR}/jce_policy-${JAVA_VERSION_MAJOR}.zip && \
       cd /tmp && unzip /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip && \
-      cp -v /tmp/UnlimitedJCEPolicyJDK8/*.jar /opt/jdk/jre/lib/security; \
+      cp -v /tmp/UnlimitedJCEPolicyJDK8/*.jar /opt/jdk/jre/lib/security/; \
     fi && \
     sed -i s/#networkaddress.cache.ttl=-1/networkaddress.cache.ttl=10/ $JAVA_HOME/jre/lib/security/java.security && \
     apk del curl glibc-i18n && \
@@ -73,5 +81,6 @@ RUN set -ex && \
            /opt/jdk/jre/lib/plugin.jar \
            /tmp/* /var/cache/apk/* && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+
 
 # EOF
