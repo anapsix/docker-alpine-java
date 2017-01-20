@@ -10,7 +10,7 @@ JCE_FLAVORS=(standard unlimited)
 # Dockerfile.jdk.tpl
 # Dockerfile.jdk-dcevm.tpl
 
-JAVA_VERSIONS=( 7-80-15 8-92-14 8-102-14 8-112-15 )
+JAVA_VERSIONS=(7-80-15 8-92-14 8-102-14 8-111-14 8-121-13-e9e7ea248e2c4826b92b3f075a80e441)
 
 GLIBC_VERSION="2.23-r3"
 
@@ -40,6 +40,7 @@ gen_dockerfile() {
        s/%JVM_MINOR%/${JVM_MINOR}/g;
        s/%JVM_BUILD%/${JVM_BUILD}/g;
        s/%JVM_PACKAGE%/${JVM_PACKAGE}/g;
+       s/%JVM_URL%/${JVM_URL}/g;
        s/%JAVA_JCE%/${JAVA_JCE:-standard}/g;
        s/%DCEVM_INSTALLER_URL%/${DCEVM_INSTALLER_URL}/g;
        s/%DCEVM_INSTALLER_NAME%/${DCEVM_INSTALLER_NAME}/g;
@@ -53,6 +54,13 @@ for version in ${JAVA_VERSIONS[@]}; do
   JVM_MAJOR=$(echo $version | cut -d- -f1)
   JVM_MINOR=$(echo $version | cut -d- -f2)
   JVM_BUILD=$(echo $version | cut -d- -f3)
+  JVM_TEMP=$(echo $version | cut -d- -f4)
+
+  if [ "${JVM_MINOR}" -ge 121 ]; then
+    JVM_URL='http:\/\/download.oracle.com\/otn-pub\/java\/jdk\/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}\/'${JVM_TEMP}'\/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz'
+  else
+    JVM_URL='http:\/\/download.oracle.com\/otn-pub\/java\/jdk\/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}\/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz'
+  fi
 
   if [ "${JVM_MAJOR}" -eq "7" ]; then
     DCEVM_INSTALLER_VERSION=7u79
@@ -86,5 +94,3 @@ for JAVA_MAJOR in $(echo "${JAVA_VERSIONS[@]}" | tr ' ' '\n\' | cut -d- -f1 | un
   cd ..
 done
 echo "done"
-
-

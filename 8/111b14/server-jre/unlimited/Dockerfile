@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-2.23 and Oracle Java %JVM_MAJOR%
+# AlpineLinux with a glibc-2.23 and Oracle Java 8
 FROM alpine:3.4
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
@@ -6,14 +6,14 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 # and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
 
 # Java Version and other ENV
-ENV JAVA_VERSION_MAJOR=%JVM_MAJOR% \
-    JAVA_VERSION_MINOR=%JVM_MINOR% \
-    JAVA_VERSION_BUILD=%JVM_BUILD% \
-    JAVA_PACKAGE=%JVM_PACKAGE% \
-    JAVA_JCE=%JAVA_JCE% \
+ENV JAVA_VERSION_MAJOR=8 \
+    JAVA_VERSION_MINOR=111 \
+    JAVA_VERSION_BUILD=14 \
+    JAVA_PACKAGE=server-jre \
+    JAVA_JCE=unlimited \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
-    GLIBC_VERSION=%GLIBC_VERSION% \
+    GLIBC_VERSION=2.23-r3 \
     LANG=C.UTF-8
 
 # do all in one step
@@ -28,23 +28,23 @@ RUN set -ex && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     mkdir /opt && \
     curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
-      %JVM_URL% && \
+      http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
+    curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip \
+      http://download.oracle.com/otn-pub/java/jce/${JAVA_VERSION_MAJOR}/jce_policy-${JAVA_VERSION_MAJOR}.zip && \
     gunzip /tmp/java.tar.gz && \
     tar -C /opt -xf /tmp/java.tar && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
-    if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Installing Unlimited JCE policy" >&2 && \
+    find /opt/jdk/ -maxdepth 1 -mindepth 1 | grep -v jre | xargs rm -rf && \
+    cd /opt/jdk/ && ln -s ./jre/bin ./bin && \
+    if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Installing Unlimited JCE policy" && \
       curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip \
         http://download.oracle.com/otn-pub/java/jce/${JAVA_VERSION_MAJOR}/jce_policy-${JAVA_VERSION_MAJOR}.zip && \
       cd /tmp && unzip /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip && \
-      cp -v /tmp/UnlimitedJCEPolicyJDK8/*.jar /opt/jdk/jre/lib/security; \
+      cp -v /tmp/UnlimitedJCEPolicyJDK8/*.jar /opt/jdk/jre/lib/security/; \
     fi && \
     sed -i s/#networkaddress.cache.ttl=-1/networkaddress.cache.ttl=10/ $JAVA_HOME/jre/lib/security/java.security && \
     apk del curl glibc-i18n && \
-    rm -rf /opt/jdk/*src.zip \
-           /opt/jdk/lib/missioncontrol \
-           /opt/jdk/lib/visualvm \
-           /opt/jdk/lib/*javafx* \
-           /opt/jdk/jre/plugin \
+    rm -rf /opt/jdk/jre/plugin \
            /opt/jdk/jre/bin/javaws \
            /opt/jdk/jre/bin/jjs \
            /opt/jdk/jre/bin/orbd \
