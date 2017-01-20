@@ -13,8 +13,12 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 All tags upgraded to `alpine:3.4`
 
 #### MAJOR TAGGING UPDATE
-To allow selection of specific Java version, a **major retagging is taking place**.  
-Old tags will remain for compatibility sake, but are no longer documented.
+To allow selection of specific Java version, a **major retagging is taking place**.
+Old tags will remain for compatibility sake, but are no longer documented.  
+`:8`,`:7` and `:latest` are all valid, but are not "locked" to any specific Java version / patch set - i.e. depending on when you pull the `:8` tagged image, for example, you might end up with `8u102b14`, `8u112b15`, `8u121b13`, etc..
+Well, `:7` no as much, since it's EOL and no more patches are released.  
+
+However spefic `:8uXXXbYY` tags (such as `:8u102b14`, `:8u112b15`) will guarantee paricular MAJOR-MINOR-BUILD Java versions.
 
 #### JCE Policy
 Special `_unlimited` images are available with Unlimited JCE Policy
