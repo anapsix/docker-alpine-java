@@ -56,16 +56,10 @@ RUN set -ex && \
            /opt/jdk/jre/lib/javaws.jar \
            /opt/jdk/jre/lib/deploy* \
            /opt/jdk/jre/lib/desktop \
-           /opt/jdk/jre/lib/*javafx* \
-           /opt/jdk/jre/lib/*jfx* \
            /opt/jdk/jre/lib/amd64/libdecora_sse.so \
            /opt/jdk/jre/lib/amd64/libprism_*.so \
-           /opt/jdk/jre/lib/amd64/libfxplugins.so \
            /opt/jdk/jre/lib/amd64/libglass.so \
            /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so \
-           /opt/jdk/jre/lib/ext/jfxrt.jar \
            /opt/jdk/jre/lib/ext/nashorn.jar \
            /opt/jdk/jre/lib/oblique-fonts \
            /opt/jdk/jre/lib/plugin.jar \
