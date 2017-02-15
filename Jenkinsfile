@@ -8,10 +8,16 @@ try {
         stage('Code Checkout'){
             git 'https://github.com/TiVo/docker-alpine-java.git'
         }
-        stage('Build Docker Image') {
+        stage('Build Docker Images') {
             dir('8/102b14/server-jre/standard/') {
                 docker.withRegistry('https://docker.tivo.com', 'docker-registry') {
                     def image = docker.build("${imageName}:8_server-jre", "--pull .")
+                    image.push()
+                }
+            }
+            dir('8/102b14/jdk/standard/') {
+                docker.withRegistry('https://docker.tivo.com', 'docker-registry') {
+                    def image = docker.build("${imageName}:8_jdk", "--pull .")
                     image.push()
                 }
             }
