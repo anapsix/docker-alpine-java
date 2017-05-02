@@ -55,3 +55,8 @@ Latest Oracle Java 7 JDK (plus DCEVM variant):
 Example: 
 
     docker run -it --rm anapsix/alpine-java java -version
+
+
+### Disclaimer
+
+By using Dockerfiles contained in this repo and/or container images derived from them, you are agreeing to any and all applicable license agreements & export rules related to unlimited strength crypto, etc..
