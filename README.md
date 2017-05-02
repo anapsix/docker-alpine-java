@@ -6,7 +6,7 @@
 
 
 Basic [Docker](https://www.docker.com/) image to run [Java](https://www.java.com/) applications.  
-This image is based on [AlpineLinux](http://alpinelinux.org/) to keep the size dow, yet smaller images do exist.  
+This image is based on [AlpineLinux](http://alpinelinux.org/) to keep the size down, yet smaller images do exist.  
 Includes BASH, since many Java applications like to have convoluted BASH start-up scripts.
 
 ### Versions/tags
@@ -18,12 +18,12 @@ Old tags will remain for compatibility sake, but are no longer documented.
 `:8`,`:7` and `:latest` are all valid, but are not "locked" to any specific Java version / patch set - i.e. depending on when you pull the `:8` tagged image, for example, you might end up with `8u102b14`, `8u112b15`, `8u121b13`, etc..
 Well, `:7` no as much, since it's EOL and no more patches are released.  
 
-However specific `:8uXXXbYY` tags (such as `:8u102b14`, `:8u112b15`) will guarantee paricular MAJOR-MINOR-BUILD Java versions.
+However specific `:8uXXXbYY` tags (such as `:8u102b14`, `:8u112b15`) will guarantee particular MAJOR-MINOR-BUILD Java versions.
 
 #### JCE Policy
 Special `_unlimited` images are available with Unlimited JCE Policy
 
-**Latest JRE8/JDK8 Version**: `8u121b13`  
+**Latest JRE8/JDK8 Version**: `8u131b11`  
 **Latest JRE7/JDK7 Version**: `7u80b15`  
 **JDK8/JDK7 Versions with alternative JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u112` / `full-7u80`
 
