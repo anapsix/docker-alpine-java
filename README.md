@@ -23,7 +23,7 @@ However specific `:8uXXXbYY` tags (such as `:8u102b14`, `:8u112b15`) will guaran
 #### JCE Policy
 Special `_unlimited` images are available with Unlimited JCE Policy
 
-**Latest JRE8/JDK8 Version**: `8u141b15`  
+**Latest JRE8/JDK8 Version**: `8u144b01`  
 **Latest JRE7/JDK7 Version**: `7u80b15`  
 **JDK8/JDK7 Versions with alternative JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u112` / `full-7u80`
 
