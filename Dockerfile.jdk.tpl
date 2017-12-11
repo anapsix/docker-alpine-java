@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-%{GLIBC_VERSION} and Oracle Java %JVM_MAJOR%
+# AlpineLinux with a glibc-%GLIBC_VERSION% and Oracle Java %JVM_MAJOR%
 FROM alpine:%ALPINE_VERSION%
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
@@ -30,6 +30,9 @@ RUN set -ex && \
     mkdir /opt && \
     curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
       %JVM_URL% && \
+    JAVA_PACKAGE_SHA256=$(curl -sSL https://www.oracle.com/webfolder/s/digest/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}checksum.html | grep -E "${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64\.tar\.gz" | grep -Eo '(sha256: )[^<]+' | cut -d: -f2 | xargs) && \
+    echo "${JAVA_PACKAGE_SHA256}  /tmp/java.tar.gz" > /tmp/java.tar.gz.sha256 && \
+    sha256sum -c /tmp/java.tar.gz.sha256 && \
     gunzip /tmp/java.tar.gz && \
     tar -C /opt -xf /tmp/java.tar && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
