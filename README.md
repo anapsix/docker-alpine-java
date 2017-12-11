@@ -1,9 +1,8 @@
 ## Minified Docker image with Java
 
-[![Build Status](https://travis-ci.org/anapsix/docker-alpine-java.svg?branch=master)](https://travis-ci.org/anapsix/docker-alpine-java)
-
+[![Docker Pulls](https://img.shields.io/docker/pulls/anapsix/alpine-java.svg?style=round-square)](https://hub.docker.com/r/anapsix/alpine-java/)
 [![](https://images.microbadger.com/badges/image/anapsix/alpine-java:latest.svg)](https://microbadger.com/images/anapsix/alpine-java:latest)
-
+[![Build Status](https://travis-ci.org/anapsix/docker-alpine-java.svg?branch=master)](https://travis-ci.org/anapsix/docker-alpine-java)
 
 Basic [Docker](https://www.docker.com/) image to run [Java](https://www.java.com/) applications.  
 This image is based on [AlpineLinux](http://alpinelinux.org/) to keep the size down, yet smaller images do exist.  
@@ -11,6 +10,7 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 
 ### Versions/tags
 All tags upgraded to `alpine:3.4`
+Latest tags are based on `alpipne:3.6`.
 
 #### MAJOR TAGGING UPDATE
 To allow selection of specific Java version, a **major retagging is taking place**.
@@ -23,7 +23,7 @@ However specific `:8uXXXbYY` tags (such as `:8u102b14`, `:8u112b15`) will guaran
 #### JCE Policy
 Special `_unlimited` images are available with Unlimited JCE Policy
 
-**Latest JRE8/JDK8 Version**: `8u144b01`  
+**Latest JRE8/JDK8 Version**: `8u151b12`  
 **Latest JRE7/JDK7 Version**: `7u80b15`  
 **JDK8/JDK7 Versions with alternative JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u112` / `full-7u80`
 

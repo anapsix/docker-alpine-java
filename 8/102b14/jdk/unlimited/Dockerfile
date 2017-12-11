@@ -1,5 +1,5 @@
-# AlpineLinux with a glibc-2.23 and Oracle Java 8
-FROM alpine:3.4
+# AlpineLinux with a glibc-%{GLIBC_VERSION} and Oracle Java 8
+FROM alpine:3.6
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
 # thanks to Vladimir Krivosheev <develar@gmail.com> aka @develar for smaller image
@@ -13,7 +13,7 @@ ENV JAVA_VERSION_MAJOR=8 \
     JAVA_JCE=unlimited \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
-    GLIBC_VERSION=2.23-r3 \
+    GLIBC_VERSION=2.26-r0 \
     LANG=C.UTF-8
 
 # do all in one step

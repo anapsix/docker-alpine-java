@@ -10,9 +10,10 @@ JCE_FLAVORS=(standard unlimited)
 # Dockerfile.jdk.tpl
 # Dockerfile.jdk-dcevm.tpl
 
-JAVA_VERSIONS=(7-80-15 8-92-14 8-102-14 8-111-14 8-121-13-e9e7ea248e2c4826b92b3f075a80e441 8-131-11-d54c1d3a095b4ff2b6607d096fa80163 8-141-15-336fa29ff2bb4ef291e347e091f7f4a7 8-144-01-090f390dda5b47b9b721c7dfaa008135)
+JAVA_VERSIONS=(7-80-15 8-92-14 8-102-14 8-111-14 8-121-13-e9e7ea248e2c4826b92b3f075a80e441 8-131-11-d54c1d3a095b4ff2b6607d096fa80163 8-141-15-336fa29ff2bb4ef291e347e091f7f4a7 8-144-01-090f390dda5b47b9b721c7dfaa008135 8-151-12-e758a0de34e24606bca991d704f6dcbf)
 
-GLIBC_VERSION="2.23-r3"
+ALPINE_VERSION="3.6"
+GLIBC_VERSION="2.26-r0"
 
 gen_dockerfile() {
   JVM_PACKAGE="$1"
@@ -36,7 +37,8 @@ gen_dockerfile() {
     JVM_PACKAGE="jdk"
   fi
 
-  sed "s/%JVM_MAJOR%/${JVM_MAJOR}/g;
+  sed "s/%ALPINE_VERSION%/${ALPINE_VERSION}/g;
+       s/%JVM_MAJOR%/${JVM_MAJOR}/g;
        s/%JVM_MINOR%/${JVM_MINOR}/g;
        s/%JVM_BUILD%/${JVM_BUILD}/g;
        s/%JVM_PACKAGE%/${JVM_PACKAGE}/g;
