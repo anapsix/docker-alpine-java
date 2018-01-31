@@ -10,7 +10,7 @@ Includes BASH, since many Java applications like to have convoluted BASH start-u
 
 ### Versions/tags
 All tags upgraded to `alpine:3.4`
-Latest tags are based on `alpipne:3.6`.
+Latest tags are based on `alpine:3.6`.
 
 #### MAJOR TAGGING UPDATE
 To allow selection of specific Java version, a **major retagging is taking place**.
