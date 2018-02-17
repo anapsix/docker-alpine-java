@@ -58,7 +58,6 @@ RUN set -ex && \
            /opt/jdk/lib/*javafx* \
            /opt/jdk/jre/plugin \
            /opt/jdk/jre/bin/javaws \
-           /opt/jdk/jre/bin/jjs \
            /opt/jdk/jre/bin/orbd \
            /opt/jdk/jre/bin/pack200 \
            /opt/jdk/jre/bin/policytool \
@@ -80,7 +79,6 @@ RUN set -ex && \
            /opt/jdk/jre/lib/amd64/libjavafx*.so \
            /opt/jdk/jre/lib/amd64/libjfx*.so \
            /opt/jdk/jre/lib/ext/jfxrt.jar \
-           /opt/jdk/jre/lib/ext/nashorn.jar \
            /opt/jdk/jre/lib/oblique-fonts \
            /opt/jdk/jre/lib/plugin.jar \
            /tmp/* /var/cache/apk/* && \
