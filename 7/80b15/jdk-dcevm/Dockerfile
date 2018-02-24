@@ -1,4 +1,4 @@
-# AlpineLinux with a glibc-2.26-r0 and Oracle Java 7
+# AlpineLinux with a glibc-2.27-r0 and Oracle Java 7
 FROM alpine:3.6
 
 
@@ -15,7 +15,7 @@ ENV JAVA_VERSION_MAJOR=7 \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
     GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc \
-    GLIBC_VERSION=2.26-r0 \
+    GLIBC_VERSION=2.27-r0 \
     LANG=C.UTF-8
 
 # do all in one step
