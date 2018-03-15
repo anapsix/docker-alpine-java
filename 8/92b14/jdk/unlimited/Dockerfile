@@ -1,5 +1,5 @@
 # AlpineLinux with a glibc-2.27-r0 and Oracle Java 8
-FROM alpine:3.6
+FROM alpine:3.7
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
 # thanks to Vladimir Krivosheev <develar@gmail.com> aka @develar for smaller image
