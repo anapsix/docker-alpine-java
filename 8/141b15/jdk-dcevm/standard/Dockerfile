@@ -11,6 +11,7 @@ ENV JAVA_VERSION_MAJOR=8 \
     JAVA_VERSION_MINOR=141 \
     JAVA_VERSION_BUILD=15 \
     JAVA_PACKAGE=jdk \
+    HOTSWAP_AGENT_VERSION=1.2.0 \
     JAVA_JCE=standard \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
@@ -44,6 +45,9 @@ RUN set -ex && \
     unzip DCEVM-light-8u112-installer.jar && \
     mkdir -p /opt/jdk/jre/lib/amd64/dcevm && \
     cp linux_amd64_compiler2/product/libjvm.so /opt/jdk/jre/lib/amd64/dcevm/libjvm.so && \
+    mkdir -p /opt/hotswap-agent/ && \
+    curl -L -o /opt/hotswap-agent/hotswap-agent-${HOTSWAP_AGENT_VERSION}.jar "https://github.com/HotswapProjects/HotswapAgent/releases/download/RELEASE-${HOTSWAP_AGENT_VERSION}/hotswap-agent-${HOTSWAP_AGENT_VERSION}.jar" && \
+    ln -s /opt/hotswap-agent/hotswap-agent-${HOTSWAP_AGENT_VERSION}.jar /opt/hotswap-agent/hotswap-agent.jar && \
     if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Installing Unlimited JCE policy" && \
       curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip \
         http://download.oracle.com/otn-pub/java/jce/${JAVA_VERSION_MAJOR}/jce_policy-${JAVA_VERSION_MAJOR}.zip && \

@@ -15,6 +15,7 @@ JAVA_VERSIONS=(7-80-15 8-92-14 8-102-14 8-111-14 8-121-13-e9e7ea248e2c4826b92b3f
 ALPINE_VERSION="3.7"
 GLIBC_VERSION="2.27-r0"
 GLIBC_REPO="https:\/\/github.com\/sgerrand\/alpine-pkg-glibc"
+HOTSWAP_AGENT_VERSION="1.2.0"
 
 gen_dockerfile() {
   JVM_PACKAGE="$1"
@@ -39,6 +40,7 @@ gen_dockerfile() {
   fi
 
   sed "s/%ALPINE_VERSION%/${ALPINE_VERSION}/g;
+       s/%HOTSWAP_AGENT_VERSION%/${HOTSWAP_AGENT_VERSION}/g;
        s/%JVM_MAJOR%/${JVM_MAJOR}/g;
        s/%JVM_MINOR%/${JVM_MINOR}/g;
        s/%JVM_BUILD%/${JVM_BUILD}/g;
