@@ -24,7 +24,7 @@ However specific `:8uXXXbYY` tags (such as `:8u102b14`, `:8u112b15`) will guaran
 Special `_unlimited` images are available with Unlimited JCE Policy
 
 **Early Release MUSL JRE9 / JDK9**: `9 / 9_jdk`  
-**Latest JRE8/JDK8 Version**: `8u172b11`  
+**Latest JRE8/JDK8 Version**: `8u181b13`  
 **Latest JRE7/JDK7 Version**: `7u80b15` - no longer buildable, as Oracle provides no downloadable packages. 
 **JDK8/JDK7 Versions with alternative JVM - [DCEVM](https://dcevm.github.io/)**: `light-8u112` / `full-7u80`
 
