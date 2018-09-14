@@ -64,4 +64,4 @@ Example:
 
 ### Disclaimer
 
-By using Dockerfiles contained in this repo and/or container images derived from them, you are agreeing to any and all applicable license agreements & export rules related to unlimited strength crypto, etc..
+By using Dockerfiles contained in this repo and/or container images derived from them, you are agreeing to any and all applicable software licences, license agreements & export rules related to unlimited strength crypto, etc..
