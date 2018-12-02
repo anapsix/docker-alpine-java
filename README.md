@@ -37,7 +37,9 @@ Special `_unlimited` images are available with Unlimited JCE Policy
 Latest Oracle Java 8 Server-JRE:
 * `latest`
 * `8`
+* `8_nashorn`
 * `8_server-jre`
+* `8_server-jre_nashorn`
 * `8_server-jre_unlimited`
 
 Latest Oracle Java 8 JDK (plus DCEVM variant)

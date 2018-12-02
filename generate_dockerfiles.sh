@@ -2,7 +2,7 @@
 
 set -o pipefail -e
 
-JVM_FLAVORS=(server-jre jdk jdk-dcevm)
+JVM_FLAVORS=(server-jre server-jre_nashorn jdk jdk-dcevm)
 JCE_FLAVORS=(standard unlimited)
 
 # TEMPLATES (one per flavor)
@@ -18,7 +18,8 @@ GLIBC_REPO="https:\/\/github.com\/sgerrand\/alpine-pkg-glibc"
 HOTSWAP_AGENT_VERSION="1.2.0"
 
 gen_dockerfile() {
-  JVM_PACKAGE="$1"
+  JVM_PACKAGE="${1}"
+
   DOCKERFILE_TEMPLATE="Dockerfile.${JVM_PACKAGE}.tpl"
   DOCKERFILE_TARGET="${JVM_MAJOR}/${JVM_MINOR}b${JVM_BUILD}/${JVM_PACKAGE}/${JAVA_JCE}/Dockerfile"
   DOCKERFILE_TARGET_DIR="$(dirname ${DOCKERFILE_TARGET})"
@@ -33,6 +34,10 @@ gen_dockerfile() {
   # create target dockerfile dir
   if [ ! -e ${DOCKERFILE_TARGET_DIR} ]; then
     mkdir -p ${DOCKERFILE_TARGET_DIR}
+  fi
+
+  if [[ "${1#*_}" == "nashorn" ]]; then
+    JVM_PACKAGE="${1%_*}"
   fi
 
   if [ "${JVM_PACKAGE}" == "jdk-dcevm" ]; then
@@ -79,12 +84,20 @@ for version in ${JAVA_VERSIONS[@]}; do
   fi
 
   for JVM_FLAVOR in ${JVM_FLAVORS[@]}; do
-    
-    if [ "${JVM_MAJOR}" -eq "8" ]; then
-      for JAVA_JCE in ${JCE_FLAVORS[@]}; do
+
+    if [[ ${JVM_MAJOR} -eq 8 ]]; then
+      if [[ "${JVM_FLAVOR}" == "server-jre_nashorn" ]] && [[ ${JVM_MINOR} -lt 192 ]]; then
+        continue
+      elif [[ "${JVM_FLAVOR}" == "server-jre_nashorn" ]] && [[ ${JVM_MINOR} -ge 192 ]]; then
         gen_dockerfile $JVM_FLAVOR
-      done
+      else
+        for JAVA_JCE in ${JCE_FLAVORS[@]}; do
+          gen_dockerfile $JVM_FLAVOR
+        done
+        unset JAVA_JCE
+      fi
     else
+      [[ "${JVM_FLAVOR}" == "server-jre_nashorn" ]] && continue || true
       gen_dockerfile $JVM_FLAVOR
     fi
 
