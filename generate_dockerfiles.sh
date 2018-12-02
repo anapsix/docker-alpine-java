@@ -2,7 +2,7 @@
 
 set -o pipefail -e
 
-JVM_FLAVORS=(server-jre server-jre_nashorn jdk jdk-dcevm)
+JVM_FLAVORS=(server-jre server-jre_nashorn jdk_nashorn jdk jdk-dcevm)
 JCE_FLAVORS=(standard unlimited)
 
 # TEMPLATES (one per flavor)
@@ -86,9 +86,9 @@ for version in ${JAVA_VERSIONS[@]}; do
   for JVM_FLAVOR in ${JVM_FLAVORS[@]}; do
 
     if [[ ${JVM_MAJOR} -eq 8 ]]; then
-      if [[ "${JVM_FLAVOR}" == "server-jre_nashorn" ]] && [[ ${JVM_MINOR} -lt 192 ]]; then
+      if [[ "${JVM_FLAVOR}" == *_nashorn ]] && [[ ${JVM_MINOR} -lt 192 ]]; then
         continue
-      elif [[ "${JVM_FLAVOR}" == "server-jre_nashorn" ]] && [[ ${JVM_MINOR} -ge 192 ]]; then
+      elif [[ "${JVM_FLAVOR}" == *_nashorn ]] && [[ ${JVM_MINOR} -ge 192 ]]; then
         gen_dockerfile $JVM_FLAVOR
       else
         for JAVA_JCE in ${JCE_FLAVORS[@]}; do
@@ -97,7 +97,7 @@ for version in ${JAVA_VERSIONS[@]}; do
         unset JAVA_JCE
       fi
     else
-      [[ "${JVM_FLAVOR}" == "server-jre_nashorn" ]] && continue || true
+      [[ "${JVM_FLAVOR}" == *_nashorn ]] && continue || true
       gen_dockerfile $JVM_FLAVOR
     fi
 
