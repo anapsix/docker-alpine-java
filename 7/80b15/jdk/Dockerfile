@@ -7,7 +7,7 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=7 \
-    JAVA_VERSION_MINOR=80 \
+    JAVA_VERSION_MINOR=79 \
     JAVA_VERSION_BUILD=15 \
     JAVA_PACKAGE=jdk \
     JAVA_JCE=standard \
@@ -19,7 +19,7 @@ ENV JAVA_VERSION_MAJOR=7 \
 
 # do all in one step
 RUN set -ex && \
-    [[ ${JAVA_VERSION_MAJOR} != 7 ]] || ( echo >&2 'Oracle no longer publishes JAVA7 packages' && exit 1 ) && \
+   # [[ ${JAVA_VERSION_MAJOR} != 7 ]] || ( echo >&2 'Oracle no longer publishes JAVA7 packages' && exit 1 ) && \
     apk -U upgrade && \
     apk add libstdc++ curl ca-certificates bash && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
