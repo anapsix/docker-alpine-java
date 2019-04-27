@@ -7,7 +7,7 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=7 \
-    JAVA_VERSION_MINOR=79 \
+    JAVA_VERSION_MINOR=80 \
     JAVA_VERSION_BUILD=15 \
     JAVA_PACKAGE=jdk \
     JAVA_JCE=standard \
